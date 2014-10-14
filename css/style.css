@@ -1,5 +1,5 @@
-@charset "utf-8";
 /* CSS Document */
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 /* =============================================================================
    HTML5 Boilerplate CSS: h5bp.com/css
    ========================================================================== */
@@ -11,7 +11,7 @@
 
 html {
   font-size: 100%;
-  background: #eeeeee;
+  background: #eee;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -32,16 +32,6 @@ body {
   font-size: 16px;
   font-family: 'museo-slab', 'Georgia', serif; }
 
-::-moz-selection {
-  background: #fe57a1;
-  color: #fff;
-  text-shadow: none; }
-
-::selection {
-  background: #fe57a1;
-  color: #fff;
-  text-shadow: none; }
-
 a {
   color: red;
   text-decoration: none;
@@ -51,7 +41,7 @@ a:visited {
   color: red; }
 
 a:hover {
-  color: #222222; }
+  color: #222; }
 
 a:focus {
   outline: thin dotted; }
@@ -141,22 +131,77 @@ img {
   vertical-align: middle; }
 
 /* ===== Primary Styles ========================================================
-   Author: Nick Jones / The Experiment
+  The Experiment
    ========================================================================== */
 .content {
   width: 100%;
   height: 100%;
-  padding: 3%;
-  border: 1px solid #222222; }
+  padding: 4% 12%;
+  border: 1px solid #222; }
+
+#projects .slide {
+  position: absolute; }
+
+#projects {
+  padding: 10%;
+  top: 0;
+  line-height: 1em;
+  position: fixed;
+  width: 100%;
+  height: 100%; }
+  #projects .slideleft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 100%;
+    overflow: hidden;
+    transition: height 0.9s ease-out;
+    -webkit-transition: all 0.7s 0 ease-out;
+    -moz-transition: all 0.7s 0 ease-out;
+    -o-transition: all 0.7s 0 ease-out;
+    -ms-transition: all 0.7s 0 ease-out;
+    transition: all 0.7s 0 ease-out;
+    -moz-transition-duration: 0.7s;
+    -moz-transition-property: all;
+    -moz-transition-delay: 0; }
+    #projects .slideleft.out {
+      opacity: 0; }
+  #projects .slideleft:nth-child(1) {
+    z-index: 10;
+    background-color: #ddd; }
+  #projects .slideleft:nth-child(2) {
+    z-index: 9;
+    background-color: #999; }
+  #projects .slideleft:nth-child(3) {
+    z-index: 8; }
+  #projects .in.slideleft {
+    height: 100%; }
+  #projects .copy {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    opacity: 1;
+    -webkit-transition: all 0.7s 0 ease-out;
+    -moz-transition: all 0.7s 0 ease-out;
+    -o-transition: all 0.7s 0 ease-out;
+    -ms-transition: all 0.7s 0 ease-out;
+    transition: all 0.7s 0 ease-out;
+    -moz-transition-duration: 0.7s;
+    -moz-transition-property: all;
+    -moz-transition-delay: 0; }
+    #projects .copy h2 {
+      font-size: 6em;
+      line-height: .8em; }
 
 header {
   width: 100%;
   height: 100px;
   text-align: center;
-  border: 1px solid #222222; }
+  border: 1px solid #222; }
 
 h1, h2, h3, h4, h5 {
-  font-family: "Helvetica", sans-serif; }
+  font-family: "Montserrat", sans-serif; }
 
 h1 {
   font-size: 8em; }
@@ -169,7 +214,7 @@ h3 {
 
 footer {
   height: 100px;
-  border: 1px solid #222222; }
+  border: 1px solid #222; }
 
 /* =============================================================================
    Non-Semantic Helper Classes
@@ -222,3 +267,5 @@ footer {
 
 .clearfix {
   *zoom: 1; }
+
+/*# sourceMappingURL=style.css.map */

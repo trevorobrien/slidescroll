@@ -1,63 +1,82 @@
-$(function(){
-  var WIN = $(window);
-  var DOC = $(document);
-  var initialized = false;
+var delta = 0;
+var currentSlideIndex = 0;
+var scrollThreshold = 360;
+var slides = $(".slideleft");
+var numSlides = slides.length;
+var sdegree = 0;
 
-  // Smooth Touch Scrolljacking
-  var  containerTop =     0, // keeps track of amount scrolled without actually scrolling
-  moved =                 0, // amount your finger moved during touchmove
-  touchStartY =           0,
-  isTouchDevice =         false, // set to true on touchstart
-  touchInterval;
 
-  // Initialize
-  pageResize();
-  scrollHandler();
-  // Page events
-  WIN.on('resize',pageResize);
-  WIN.on('scroll',scrollHandler);
-  // Touch events
-  WIN.on('touchstart',function(e){
-    isTouchDevice = true;
-    touchInterval = setInterval(redraw, 10);
-    moved = 0;
-    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-    touchStartY = touch.pageY;
-  })
-  WIN.on('touchmove',function(e){
-    e.preventDefault();
-    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-    moved = touch.pageY-touchStartY;
-    containerTop -= moved;
-    touchStartY = touch.pageY;
-  })
-  WIN.on('touchend',function(e){
-    moved*=.95;
-    containerTop -= moved;
-    if(Math.abs(moved) < .2){
-      clearInterval(touchInterval);
-    }
-  })
-  function pageResize (e) {
-    WIN_H = WIN.height();
-    WIN_W = WIN.width();
-    
-    initialized = true;
-  }
-  function scrollHandler(){
-    if(isTouchDevice){
-      scrollTop = Math.max(0,containerTop);
-    }else{
-      scrollTop = WIN.scrollTop();
+function elementScroll (e) {
+ 
+   console.log (Math.abs(delta));
+
+  // --- Scrolling up ---
+  if (e.originalEvent.detail < 0 || e.originalEvent.wheelDelta > 0) { 
+      
+     sdegree = sdegree - 1 ;
+     var srotate = "rotate(" + sdegree + "deg)";
+     $(".slideleft").css({"-moz-transform" : srotate, "-webkit-transform" : srotate});
+
+    delta--;
+ 
+    if ( Math.abs(delta) >= scrollThreshold) {
+    prevSlide();
     }
   }
+ 
+  // --- Scrolling down ---
+  else {
 
-  // Touch Scroll
-  function redraw() {
-    if(isTouchDevice){
-      window.requestAnimationFrame(function() {
-        scrollHandler();
-      });
+     sdegree = sdegree + 1 ;
+     var srotate = "rotate(" + sdegree + "deg)";
+     $(".slideleft").css({"-moz-transform" : srotate, "-webkit-transform" : srotate});
+
+    delta++;
+ 
+    if (delta >= scrollThreshold) {
+      sdegree ++ ;
+      nextSlide();
     }
   }
-})
+ 
+  // Prevent page from scrolling
+  return false;
+}
+ 
+function showSlide() {
+ 
+  // reset
+  delta = 0;
+
+  slides.each(function(i, slide) {
+    $('.copy').addClass('out');
+    $(slide).toggleClass('in', (i >= currentSlideIndex));
+  });
+ 
+}
+ 
+function prevSlide() {
+ 
+  currentSlideIndex--;
+ 
+  if (currentSlideIndex < 0) {
+    currentSlideIndex = 0;
+  }
+ 
+  showSlide();
+}
+ 
+function nextSlide() {
+ 
+  currentSlideIndex++;
+ 
+  if (currentSlideIndex > numSlides) { 
+    currentSlideIndex = numSlides;
+  }
+ 
+  showSlide();
+}
+ 
+$(window).on({
+  'DOMMouseScroll mousewheel': elementScroll
+});

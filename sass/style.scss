@@ -1,6 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
 
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
 @mixin transition($duration,$ease:$linear,$prop:all,$delay:0)
 {
   -webkit-transition: $prop $duration $delay $ease;
@@ -85,7 +87,7 @@
   font-size: $size;
   font-family: $headline-font;
 }
-$headline-font: 'Helvetica', sans-serif;
+$headline-font: 'Montserrat', sans-serif;
 @mixin body-font($size)
 {
   font-size: $size;
@@ -142,7 +144,7 @@ nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0
 img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
 
 /* ===== Primary Styles ========================================================
-   Author: Nick Jones / The Experiment
+  The Experiment
    ========================================================================== */
 
 .content{
@@ -151,6 +153,53 @@ img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
   padding: 4% 12%;
   border: 1px solid $darkColor;
 }
+
+#projects .slide {
+position: absolute;
+}
+ 
+#projects {
+    padding: 10%;
+    top: 0;
+    line-height: 1em;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+.slideleft {
+  position: absolute;
+  top:0;
+  left:0;
+  height: 0;              
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.9s ease-out;
+  @include transition(.7s,ease-out);
+    &.out{
+  opacity: 0;
+  }
+}
+.slideleft:nth-child(1) { z-index:10; background-color: #ddd; }
+.slideleft:nth-child(2) { z-index:9; background-color: #999; }
+.slideleft:nth-child(3) { z-index:8; }
+.in.slideleft {
+  height: 100%;
+}
+.copy{
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  opacity: 1;
+  @include transition(.7s,ease-out);
+  // &.out{
+  // opacity: 0;
+  // }
+  h2{
+ font-size: 6em; 
+ line-height: .8em;
+  }
+ }
+}
+
 header{
   width: 100%;
   height: 100px;
